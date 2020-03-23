@@ -14,7 +14,7 @@ public:
     T data;
 };
 
-template <class T1>
+template <class T>
 class List
 {
 public:
@@ -22,8 +22,9 @@ public:
         head = NULL;
         tail = NULL;
     }
-    void push_back(Node<T1> *node)
+    void push_back(T data)
     {
+        Node<T> *node = new Node<T>(data);
         if (length == 0)
         {
             head = node;
@@ -37,8 +38,9 @@ public:
         }
         length++;
     }
-    void push_fornt(Node<T1> *node)
+    void push_fornt(T data)
     {
+        Node<T> *node = new Node<T>(data);
         if (length == 0)
         {
             head = node;
@@ -51,28 +53,57 @@ public:
             head = node;
         }
     }
+    Node<T> * operator[](int i)
+    {
+        Node<T> * current;
+        current = head;
+        while(i--)
+        {
+            current = current->next;
+        }
+        return current;
+    }
     int size()
     {
         return length;
     }
 
-    Node<T1> *head;
-    Node<T1> *tail;
+    Node<T> *head;
+    Node<T> *tail;
 private:
     int length = 0;
 };
 int main(int argc, char *argv[])
 {
-    Node<int> node;
     List<int> linkList;
 
-    linkList.push_back(node);
-    node = new Node(2);
-    linkList.push_back(node);
-    node = new Node(3);
-    linkList.push_back(node);
+    linkList.push_back(1);
+    linkList.push_back(2);
+    linkList.push_back(3);
+    linkList.push_back(4);
+    linkList.push_back(5);
+    printf("size:%d,head:%d,tail:%d,data:%d\n",linkList.size(),linkList.head->data,linkList.tail->data,linkList[1]->data);
 
-    printf("head:%d,tail:%d\n",linkList.head->data,linkList.tail->data);
+    int k=2;
+    int cycleCnt = linkList.size() / 2;
+    int lastCnt = linkList.size() % 2;
+
+    for (int i = 1;i <= cycleCnt;i++)
+    {
+        for (int j = i*k-1;j >= (i-1)*k ;j--)
+        {
+            if (j != (i-1)*k)
+            {
+                linkList[j]->next = linkList[j-1];
+            }
+            else
+            {
+                if (lastCnt != 0)
+                    linkList[j]->next = linkList[i*k+1];
+            }
+
+        }
+    }
+    printf("%d\n",linkList[1]->data);
     return 0;
 }
-
