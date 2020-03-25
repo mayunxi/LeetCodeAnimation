@@ -12,6 +12,7 @@
 
 我已经将所有文章同步到了我的个人博客，如果国内访问 GitHub 较慢（图片裂开），可以访问这个地址：[https://www.cxyxiaowu.com/likou/leetcode](https://www.cxyxiaowu.com/likou/leetcode)。
 
+关于怎么制作的解答:https://zhuanlan.zhihu.com/p/53584215 ，例如：动画的制作，项目的过程
 ## 汇总
 
 | 序号 | 题目&题解                                                    | 动画                                                         |
@@ -116,13 +117,3 @@
 ## 和我交流
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/6nqpz.jpeg)
-
-
-
-
-
-
-
-
-
-
