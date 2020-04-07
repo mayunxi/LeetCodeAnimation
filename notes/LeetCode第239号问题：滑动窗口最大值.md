@@ -16,8 +16,8 @@
 
 ```
 输入: nums = [1,3,-1,-3,5,3,6,7], 和 k = 3
-输出: [3,3,5,5,6,7] 
-解释: 
+输出: [3,3,5,5,6,7]
+解释:
 
   滑动窗口的位置                最大值
 ---------------               -----
@@ -47,7 +47,7 @@ Deque 的含义是 “double ended queue”，即双端队列，它具有队列�
 
 Deque 继承自 Queue（队列），它的直接实现有 ArrayDeque、LinkedList 等。
 
-### 
+###
 
 
 
@@ -59,34 +59,35 @@ Deque 继承自 Queue（队列），它的直接实现有 ArrayDeque、LinkedLis
 
 ```
 class Solution {
-   public int[] maxSlidingWindow(int[] nums, int k) {
-        //有点坑，题目里都说了数组不为空，且 k > 0。但是看了一下，测试用例里面还是有nums = [], k = 0，所以只好加上这个判断
-        if (nums == null || nums.length < k || k == 0) return new int[0];
-        int[] res = new int[nums.length - k + 1];
-        //双端队列
-        Deque<Integer> deque = new LinkedList<>();
-        for (int i = 0; i < nums.length; i++) {
-            //在尾部添加元素，并保证左边元素都比尾部大
-            while (!deque.isEmpty() && nums[deque.getLast()] < nums[i]) {
-                deque.removeLast();
-            }
-            deque.addLast(i);
-            //在头部移除元素
-            if (deque.getFirst() == i - k) {
-                deque.removeFirst();
-            }
-            //输出结果
-            if (i >= k - 1) {
-                res[i - k + 1] = nums[deque.getFirst()];
-            }
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> result;
+        deque<int> windows;
+        //初始化窗口
+        for (int i = 0;i < k;i++)
+        {
+             while (!windows.empty() && nums[i] > nums[windows.back()])
+             {
+                 windows.pop_back();
+             }
+             windows.push_back(i);
         }
-        return res;
-     }
-}
+        result.push_back(nums[windows.front()]);//第一个窗口的结果
+
+        for (int i = k;i < nums.size();i++)
+        {
+            if (!windows.empty() && windows.front() <= i-k)//头部元素是否超出窗口
+            {
+                windows.pop_front();
+            }
+            while (!windows.empty() && nums[i] > nums[windows.back()])  //保证大小顺序
+            {
+                windows.pop_back();
+            }
+            windows.push_back(i);
+            result.push_back(nums[windows.front()]);
+        }
+        return result;
+    }
+};
 ```
-
-
-
-
-
-![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/jwm9y.gif)
