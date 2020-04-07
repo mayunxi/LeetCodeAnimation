@@ -45,6 +45,48 @@
 // https://leetcode.com/problems/swap-nodes-in-pairs/description/
 // 时间复杂度: O(n)
 // 空间复杂度: O(1)
+class ListNode{
+public:
+    ListNode(int d)
+    {
+        data = d;
+    }
+    ListNode *next=NULL;
+    int data;
+};
+
+class List
+{
+public:
+    List(){
+        head = NULL;
+        tail = NULL;
+    }
+    void push_back(int data)
+    {
+        ListNode *node = new ListNode(data);
+        if (length == 0)
+        {
+            head = node;
+            tail = node;
+        }
+        else
+        {
+            tail->next=node;
+            tail=node;
+        }
+        length++;
+    }
+    int size()
+    {
+        return length;
+    }
+
+    ListNode *head;
+    ListNode *tail;
+private:
+    int length = 0;
+};
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
@@ -69,11 +111,27 @@ public:
         return retHead;
     }
 };
+int main()
+{
+    Solution solu;
+
+    List linkList;
+
+    linkList.push_back(1);
+    linkList.push_back(2);
+    linkList.push_back(3);
+    linkList.push_back(4);
+    linkList.push_back(5);
+
+    linkList.head = solu.swapPairs(linkList.head);
+
+    ListNode *p;
+    p=linkList.head;
+    while(p)
+    {
+        printf("%d\n",p->data);
+        p=p->next;
+    }
+}
 
 ```
-
-
-
-
-
-![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/k8lty.png)
