@@ -1,109 +1,80 @@
 
 #include <iostream>
+#include <stack>
+#include <vector>
+
 using namespace std;
 
-template<typename T>
-class Node{
+class Solution {
 public:
-    Node(T d)
-    {
-        data = d;
+    vector<int> dailyTemperatures(vector<int>& T) {
+            stack<int> stack1,stack2;
+            vector<int> result(T.size(),0);
+            for (int i= 0;i < T.size();i++)
+            {
+                if (!stack1.empty())
+                {
+                    while (T.at(i) > stack1.top())
+                    {
+                        result.at(stack2.top()) = i - stack2.top();
+                        stack2.pop();
+                        stack1.pop();
+                        if (stack1.empty())
+                        {
+                            break;
+                        }
+                    }
+                    stack1.push(T.at(i));
+                    stack2.push(i);
+                }
+                else
+                {
+                    stack1.push(T.at(i));
+                    stack2.push(i);
+                }
+            }
+            return result;
     }
-    Node<T> *prev=NULL;
-    Node<T> *next=NULL;
-    T data;
+
 };
 
-template <class T>
-class List
+int main()
 {
-public:
-    List(){
-        head = NULL;
-        tail = NULL;
-    }
-    void push_back(T data)
-    {
-        Node<T> *node = new Node<T>(data);
-        if (length == 0)
-        {
-            head = node;
-            tail = node;
-        }
-        else
-        {
-            tail->next=node;
-            node->prev=tail;
-            tail=node;
-        }
-        length++;
-    }
-    void push_fornt(T data)
-    {
-        Node<T> *node = new Node<T>(data);
-        if (length == 0)
-        {
-            head = node;
-            tail = node;
-        }
-        else
-        {
-            head->prev = node;
-            node->next = head;
-            head = node;
-        }
-    }
-    Node<T> * operator[](int i)
-    {
-        Node<T> * current;
-        current = head;
-        while(i--)
-        {
-            current = current->next;
-        }
-        return current;
-    }
-    int size()
-    {
-        return length;
-    }
 
-    Node<T> *head;
-    Node<T> *tail;
-private:
-    int length = 0;
-};
-int main(int argc, char *argv[])
-{
-    List<int> linkList;
+    vector<int> temp{73, 74, 75, 71, 69, 72, 76, 73};
 
-    linkList.push_back(1);
-    linkList.push_back(2);
-    linkList.push_back(3);
-    linkList.push_back(4);
-    linkList.push_back(5);
-    printf("size:%d,head:%d,tail:%d,data:%d\n",linkList.size(),linkList.head->data,linkList.tail->data,linkList[1]->data);
+    Solution s;
+    vector<int> daily = s.dailyTemperatures(temp);
 
-    int k=2;
-    int cycleCnt = linkList.size() / 2;
-    int lastCnt = linkList.size() % 2;
-
-    for (int i = 1;i <= cycleCnt;i++)
-    {
-        for (int j = i*k-1;j >= (i-1)*k ;j--)
-        {
-            if (j != (i-1)*k)
-            {
-                linkList[j]->next = linkList[j-1];
-            }
-            else
-            {
-                if (lastCnt != 0)
-                    linkList[j]->next = linkList[i*k+1];
-            }
-
-        }
-    }
-    printf("%d\n",linkList[1]->data);
     return 0;
+
 }
+
+```
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& T) {
+            stack<int> stack1,stack2;
+            vector<int> result(T.size(),0);
+            stack1.push(T.at(0));
+            stack2.push(0);
+            for (int i= 1;i < T.size();i++)
+            {
+                while (T.at(i) > stack1.top())
+                {
+                    result.at(stack2.top()) = i - stack2.top();
+                    stack2.pop();
+                    stack1.pop();
+                    if (stack1.empty())
+                    {
+                        break;
+                    }
+                }
+                stack1.push(T.at(i));
+                stack2.push(i);
+            }
+            return result;
+    }
+
+};
+```

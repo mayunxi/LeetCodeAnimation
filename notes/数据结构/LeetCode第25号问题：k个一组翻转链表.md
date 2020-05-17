@@ -1,4 +1,14 @@
+####链表的优缺点
+链表的优点如下：
+* 链表能灵活地分配内存空间；
+* 能在O(1)时间内删除或者添加元素，前提是该元素的前一个元素已知，当然也取决于是单链表还是双链表，在双链表中，如果已知该元素的后一个元素，同样可以在O(1)时间删除或者添加该元素。
 
+链表的缺点：
+* 不像数组那样可以通过下标迅速读取元素，每次都要从链表头开始一个一个读取;
+* 查询第K个元素需要O(k)时间
+
+
+```
 #include <iostream>
 using namespace std;
 
@@ -73,6 +83,7 @@ public:
 private:
     int length = 0;
 };
+
 int main(int argc, char *argv[])
 {
     List<int> linkList;
@@ -107,3 +118,4 @@ int main(int argc, char *argv[])
     printf("%d\n",linkList[1]->data);
     return 0;
 }
+```
